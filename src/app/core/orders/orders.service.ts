@@ -49,9 +49,10 @@ export class OrdersService {
     return new Observable(observer => {
       const order = this.orders.find(order => order.id === orderId) as Order;
       order.items.push(...items);
-      order.total = items.reduce((oldVal, newVal) => {
+      const total = items.reduce((oldVal, newVal) => {
         return oldVal + newVal.total;
-      }, order.total);
+      }, order.total).toFixed(2);
+      order.total = Number(total);
       observer.next(order);
     });
   }
