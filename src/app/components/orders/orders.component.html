@@ -1,0 +1,26 @@
+<section class="py-5">
+  <div class="container">
+    <h3>Orders</h3>
+    <br>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+      <div class="col" *ngFor="let order of orders">
+        <div class="card shadow-sm">
+          <div class="card-body" routerLink="/orders/{{order.id}}">
+            <div class="d-flex justify-content-between align-items-center">
+              <p class="card-text">{{customerNameById(order['customer-id'])}}</p>
+              <small class="text-muted">{{getOrderStatus(order)}}</small>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="">
+                Products: {{order.items.length}}
+              </div>
+              <small class="text-muted">Total: {{order.total}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Products</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <div class="container">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+    <div class="col" *ngFor="let product of products">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <p class="card-text">{{product.description}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              Unit Price: {{product.price}}
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="addProduct(product)">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+</div>
+<div class="modal-footer justify-content-between align-items-center">
+  <div>
+    Cart Items: {{itemsToAdd.length}}
+  </div>
+  <div>
+    <button type="button" class="btn btn-info" [disabled]="!itemsToAdd.length" (click)="activeModal.close(itemsToAdd)">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Close click')">Cancel</button>
+  </div>
+  
+</div>

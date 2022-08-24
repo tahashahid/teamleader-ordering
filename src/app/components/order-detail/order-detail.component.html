@@ -1,0 +1,66 @@
+<section class="py-5">
+  <div class="container">
+    <h3>Order Detail</h3>
+    <br>
+    <div class="row row-cols-1 g-3" *ngIf="orderDetail">
+
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="card-text h5">{{customer.name}}</div>
+              <button type="button" class="btn btn-sm btn-info" *ngIf="!hasOrderPlaced()" (click)="placeOrder(content)">Place Order</button>
+              <button type="button" class="btn btn-sm btn-info" *ngIf="hasOrderPlaced()" disabled>Order Placed</button>
+            </div>
+            
+            <br>
+            <div class="row row-cols-1 g-3">
+
+              <div class="col">
+                <div class="card shadow-sm" *ngFor="let product of orderDetail.items">
+                  <div class="card-body">
+                    <p class="card-text h6">{{productDescriptionById(product['product-id']) | async}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        Quantity: {{product.quantity}}
+                        <br>
+                        Unit Price: {{product['unit-price']}}
+                      </div>
+                      <small class="text-muted">Total: {{product.total}}</small>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary" *ngIf="isEditable" (click)="removeProduct(product['product-id'])">Remove</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-end align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary" *ngIf="isEditable" (click)="openAddProductsModal()">Add Products</button>
+              </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="">
+                Products: {{orderDetail.items.length}}
+              </div>
+              <small class="text-muted">Total: {{orderDetail.total}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Order Placed</h4>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Done</button>
+  </div>
+</ng-template>
